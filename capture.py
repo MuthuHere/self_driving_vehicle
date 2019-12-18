@@ -2,10 +2,18 @@ import numpy as np
 import cv2
 from PIL import ImageGrab
 import time
+from directinput import W, A, S, D, PressKey, ReleaseKey
 
-for i in list(range(4))[::-1]:
+for i in list(range(7))[::-1]:
     print(i+1)
     time.sleep(1)
+
+#pressing and releasing key
+print('key down')
+PressKey(W)
+time.sleep(3)
+print('key up')
+ReleaseKey(W)
 
 def process_image(original_image):
     processed_image = cv2.cvtColor(original_image, cv2.COLOR_BGRA2GRAY)
