@@ -41,21 +41,26 @@ def outputkeys(keys):
         output = nk
     return output
 
-file_name = 'training_data.npy'
+#splitting into multiple files to handle the volume of data
+start = 1
+file_name = 'training_data_{}.npy'.format(start)
 
 #checking if there is already existing training data
-if os.path.isfile(file_name):
-    np_load_old = np.load
-    # modify the default parameters of np.load
-    np.load = lambda *a,**k: np_load_old(*a, allow_pickle=True, **k)
-    # call load_data with allow_pickle implicitly set to true
-    training_data = list(np.load(file_name))
-    # restore np.load for future normal usage
-    np.load = np_load_old
-else:
+while True:
+    if os.path.isfile(file_name):
+        start += 1
+        file_name = 'training_data_{}.npy'.format(start)
+    else:
+        print('Staring')
+        break
+
+
+def main(filename, startval):
+    file_name = filename
+    start = startval
     training_data = []
 
-def main():
+    #Countdown delay
     for i in list(range(4))[::-1]:
         print(i+1)
         time.sleep(1)
@@ -73,7 +78,12 @@ def main():
 
             if len(training_data)%100 == 0:
                 print(len(training_data))
-                np.save(file_name,training_data)
+
+            if len(training_data) == 500:
+                np.save(file_name, training_data)
+                start += 1
+                training_data = []
+                file_name = 'training_data_{}.npy'.format(start)
 
         keys = keycheck()
         if 'T' in keys:
@@ -88,4 +98,4 @@ def main():
         ##print('Frame took {} seconds'.format(time.time()-last_time))
         ##last_time = time.time()
 
-main()
+main(file_name, start)
