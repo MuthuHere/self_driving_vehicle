@@ -61,7 +61,7 @@ def main(filename, startval):
     training_data = []
 
     #Countdown delay
-    for i in list(range(4))[::-1]:
+    for i in list(range(7))[::-1]:
         print(i+1)
         time.sleep(1)
 
@@ -69,17 +69,18 @@ def main(filename, startval):
     ##last_time = time.time()
     while True:
         if not paused:
-            screen = grab_screen(region=(0,40,800,640))
+            screen = grab_screen(region=(0,0,1920,1080))
             screen = cv2.cvtColor(screen, cv2.COLOR_BGR2GRAY)
-            cv2.resize(screen, (80,60))
+            screen = cv2.resize(screen, (80,60))
             keys = keycheck()
             output = outputkeys(keys)
             training_data.append([screen,output])
 
-            if len(training_data)%100 == 0:
-                print(len(training_data))
+##            if len(training_data)%100 == 0:
+##                print(len(training_data))
 
             if len(training_data) == 500:
+                print(start)
                 np.save(file_name, training_data)
                 start += 1
                 training_data = []
