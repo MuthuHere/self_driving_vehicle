@@ -21,15 +21,7 @@ nk = [0,0,0,0,0,0,0,0,1]
 def outputkeys(keys):
     #         w,a,s,d,wa,wd,sa,sd,nk
     output = [0,0,0,0,0,0,0,0,0]
-    if 'W' in keys:
-        output = w
-    elif 'A' in keys:
-        output = a
-    elif 'S' in keys:
-        output = s
-    elif 'D' in keys:
-        output = d
-    elif 'W' in keys and 'A' in keys:
+    if 'W' in keys and 'A' in keys:
         output = wa
     elif 'W' in keys and 'D' in keys:
         output = wd
@@ -37,6 +29,14 @@ def outputkeys(keys):
         output = sa
     elif 'S' in keys and 'D' in keys:
         output = sd
+    elif 'W' in keys:
+        output = w
+    elif 'A' in keys:
+        output = a
+    elif 'S' in keys:
+        output = s
+    elif 'D' in keys:
+        output = d
     else:
         output = nk
     return output
