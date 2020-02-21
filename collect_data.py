@@ -70,8 +70,8 @@ def main(filename, startval):
     while True:
         if not paused:
             screen = grab_screen(region=(0,0,1920,1080))
-            screen = cv2.cvtColor(screen, cv2.COLOR_BGR2GRAY)
-            screen = cv2.resize(screen, (80,60))
+            screen = cv2.cvtColor(screen, cv2.COLOR_BGR2RGB)
+            screen = cv2.resize(screen, (480,270))
             keys = keycheck()
             output = outputkeys(keys)
             training_data.append([screen,output])
